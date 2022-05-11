@@ -2,7 +2,7 @@ name: huggingface_segmentation
 url: https://github.com/alan-turing-institute/scivision_huggingface_segmentation
 import: huggingface_segmentation
 models:
-  - model: test
+  - model: facebook_detr_resnet_50_panoptic
     args: None
     prediction_fn:
         call: predict

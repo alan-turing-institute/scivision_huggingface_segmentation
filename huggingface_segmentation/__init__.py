@@ -1,1 +1,1 @@
-from .model import test
+from .model import facebook_detr_resnet_50_panoptic
