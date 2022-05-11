@@ -1,0 +1,10 @@
+name: huggingface_segmentation
+url: https://github.com/alan-turing-institute/scivision_huggingface_segmentation
+import: huggingface_segmentation
+models:
+  - model: test
+    args: None
+    prediction_fn:
+        call: predict
+        args:
+            X: image

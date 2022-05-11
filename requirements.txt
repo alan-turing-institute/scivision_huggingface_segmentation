@@ -1,0 +1,6 @@
+pillow
+torch
+transformers
+transformers[torch]
+transformers[tf-cpu]
+transformers[flax]
