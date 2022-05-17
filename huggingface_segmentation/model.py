@@ -20,6 +20,12 @@ def build_detr_model(model_name: str):
     model = DetrForSegmentation.from_pretrained(model_name)
     features = DetrFeatureExtractor.from_pretrained(model_name)
     return model, features
+    
+    
+def build_dpt_model(model_name: str):
+    model = DPTForSemanticSegmentation.from_pretrained(model_name)
+    features = DPTFeatureExtractor.from_pretrained(model_name)
+    return model, features
 
     
 class facebook_detr_resnet_50_panoptic:
@@ -38,6 +44,25 @@ class facebook_detr_resnet_101_panoptic:
 
     def predict(self, image: np.ndarray) -> np.ndarray:
         return tidy_predict(self, image)
+        
+        
+class Intel_dpt_large_ade:
+    def __init__(self):
+        self.model_name = 'Intel/dpt-large-ade'
+        self.pretrained_model, self.feature_extractor = build_dpt_model(self.model_name)
+
+    def predict(self, image: np.ndarray) -> np.ndarray:
+        return tidy_predict(self, image)
+        
+        
+# from .model import Intel_dpt_large_ade
+# from .model import microsoft_beit_base_finetuned_ade_640_640
+# from .model import microsoft_beit_large_finetuned_ade_640_640
+# from .model import nvidia_segformer_b0_finetuned_ade_512_512
+# from .model import nvidia_segformer_b5_finetuned_ade_640_640
+# from .model import nvidia_segformer_b4_finetuned_ade_512_512
+# from .model import nvidia_segformer_b5_finetuned_cityscapes_1024_1024
+# from .model import nvidia_segformer_b1_finetuned_ade_512_512
 
 
 if __name__ == "__main__":
