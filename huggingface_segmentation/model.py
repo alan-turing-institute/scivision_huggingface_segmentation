@@ -29,6 +29,15 @@ class facebook_detr_resnet_50_panoptic:
 
     def predict(self, image: np.ndarray) -> np.ndarray:
         return tidy_predict(self, image)
+        
+        
+class facebook_detr_resnet_101_panoptic:
+    def __init__(self):
+        self.model_name = 'facebook/detr-resnet-101-panoptic'
+        self.pretrained_model, self.feature_extractor = build_detr_model(self.model_name)
+
+    def predict(self, image: np.ndarray) -> np.ndarray:
+        return tidy_predict(self, image)
 
 
 if __name__ == "__main__":
