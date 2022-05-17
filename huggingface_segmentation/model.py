@@ -6,7 +6,9 @@ from transformers import (DetrFeatureExtractor,
                           DPTFeatureExtractor,
                           DPTForSemanticSegmentation,
                           BeitFeatureExtractor,
-                          BeitForSemanticSegmentation
+                          BeitForSemanticSegmentation,
+                          SegformerFeatureExtractor,
+                          SegformerForSemanticSegmentation
                           )
 
 
@@ -37,6 +39,12 @@ def build_dpt_model(model_name: str):
 def build_beit_model(model_name: str):
     model = BeitForSemanticSegmentation.from_pretrained(model_name)
     features = BeitFeatureExtractor.from_pretrained(model_name)
+    return model, features
+    
+    
+def build_segformer_model(model_name: str):
+    model = SegformerForSemanticSegmentation.from_pretrained(model_name)
+    features = SegformerFeatureExtractor.from_pretrained(model_name)
     return model, features
 
     
@@ -74,7 +82,8 @@ class microsoft_beit_base_finetuned_ade_640_640:
 
     def predict(self, image: np.ndarray) -> np.ndarray:
         return tidy_predict(self, image)
-    
+
+
 class microsoft_beit_large_finetuned_ade_640_640:
     def __init__(self):
         self.model_name = 'microsoft/beit-large-finetuned-ade-640-640'
@@ -82,14 +91,51 @@ class microsoft_beit_large_finetuned_ade_640_640:
 
     def predict(self, image: np.ndarray) -> np.ndarray:
         return tidy_predict(self, image)
+
+
+class nvidia_segformer_b0_finetuned_ade_512_512:
+    def __init__(self):
+        self.model_name = 'nvidia/segformer-b0-finetuned-ade-512-512'
+        self.pretrained_model, self.feature_extractor = build_segformer_model(self.model_name)
+
+    def predict(self, image: np.ndarray) -> np.ndarray:
+        return tidy_predict(self, image)
         
+        
+class nvidia_segformer_b5_finetuned_ade_640_640:
+    def __init__(self):
+        self.model_name = 'nvidia/segformer-b5-finetuned-ade-640-640'
+        self.pretrained_model, self.feature_extractor = build_segformer_model(self.model_name)
+
+    def predict(self, image: np.ndarray) -> np.ndarray:
+        return tidy_predict(self, image)
 
 
-# from .model import nvidia_segformer_b0_finetuned_ade_512_512
-# from .model import nvidia_segformer_b5_finetuned_ade_640_640
-# from .model import nvidia_segformer_b4_finetuned_ade_512_512
-# from .model import nvidia_segformer_b5_finetuned_cityscapes_1024_1024
-# from .model import nvidia_segformer_b1_finetuned_ade_512_512
+class nvidia_segformer_b4_finetuned_ade_512_512:
+    def __init__(self):
+        self.model_name = 'nvidia/segformer-b4-finetuned-ade-512-512'
+        self.pretrained_model, self.feature_extractor = build_segformer_model(self.model_name)
+
+    def predict(self, image: np.ndarray) -> np.ndarray:
+        return tidy_predict(self, image)
+        
+        
+class nvidia_segformer_b5_finetuned_cityscapes_1024_1024:
+    def __init__(self):
+        self.model_name = 'nvidia/segformer-b5-finetuned-cityscapes-1024-1024'
+        self.pretrained_model, self.feature_extractor = build_segformer_model(self.model_name)
+
+    def predict(self, image: np.ndarray) -> np.ndarray:
+        return tidy_predict(self, image)
+
+
+class nvidia_segformer_b1_finetuned_ade_512_512:
+    def __init__(self):
+        self.model_name = 'nvidia/segformer-b1-finetuned-ade-512-512'
+        self.pretrained_model, self.feature_extractor = build_segformer_model(self.model_name)
+
+    def predict(self, image: np.ndarray) -> np.ndarray:
+        return tidy_predict(self, image)
 
 
 if __name__ == "__main__":
