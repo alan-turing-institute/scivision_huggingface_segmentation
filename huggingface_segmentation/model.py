@@ -1,3 +1,6 @@
+import cv2
+from detectron2.utils.visualizer import Visualizer, ColorMode
+import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 import torch
@@ -15,14 +18,21 @@ from transformers import (DetrFeatureExtractor,
 def tidy_predict(self, image: np.ndarray) -> str:
     """Gives the top prediction for the provided image"""
     pillow_image = Image.fromarray(image.to_numpy(), 'RGB')
+    im = numpy.array(pillow_image)
+    im = im[:, :, ::-1].copy() # Convert RGB to BGR 
     inputs = self.feature_extractor(images=pillow_image, return_tensors="pt")
     outputs = self.pretrained_model(**inputs)
     logits = outputs.logits
-    return outputs
-    # model predicts COCO classes, bounding boxes, and masks
-    # bboxes = outputs.pred_boxes
-    # masks = outputs.pred_masks
-    # return bboxes, masks
+
+    v = Visualizer(im[:, :, ::-1], scale=1.5, instance_mode=ColorMode.IMAGE_BW)   # remove the colors of unsegmented pixels
+    v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+    image = cv2.cvtColor(v.get_image()[:, :, :], cv2.COLOR_BGR2RGB)
+
+    plot_predictions = plt.figure(figsize=(15,15))
+    plt.imshow(Image.fromarray(image))
+    plt.title('Predictions',fontsize='xx-large')
+    plt.axis('off')
+    plt.show()
     
     
 def build_detr_model(model_name: str):
