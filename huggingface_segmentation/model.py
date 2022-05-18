@@ -18,10 +18,11 @@ def tidy_predict(self, image: np.ndarray) -> str:
     inputs = self.feature_extractor(images=pillow_image, return_tensors="pt")
     outputs = self.pretrained_model(**inputs)
     logits = outputs.logits
+    return outputs
     # model predicts COCO classes, bounding boxes, and masks
-    bboxes = outputs.pred_boxes
-    masks = outputs.pred_masks
-    return bboxes, masks
+    # bboxes = outputs.pred_boxes
+    # masks = outputs.pred_masks
+    # return bboxes, masks
     
     
 def build_detr_model(model_name: str):
