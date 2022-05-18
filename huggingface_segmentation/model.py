@@ -25,7 +25,7 @@ def tidy_predict(self, image: np.ndarray) -> str:
     logits = outputs.logits
 
     v = Visualizer(im[:, :, ::-1], scale=1.5, instance_mode=ColorMode.IMAGE_BW)   # remove the colors of unsegmented pixels
-    v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+    v = v.draw_instance_predictions(logits["instances"].to("cpu"))
     image = cv2.cvtColor(v.get_image()[:, :, :], cv2.COLOR_BGR2RGB)
 
     plot_predictions = plt.figure(figsize=(15,15))
