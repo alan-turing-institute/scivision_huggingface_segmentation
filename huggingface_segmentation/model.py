@@ -18,7 +18,7 @@ from transformers import (DetrFeatureExtractor,
 def tidy_predict(self, image: np.ndarray) -> str:
     """Gives the top prediction for the provided image"""
     pillow_image = Image.fromarray(image.to_numpy(), 'RGB')
-    im = numpy.array(pillow_image)
+    im = np.array(pillow_image)
     im = im[:, :, ::-1].copy() # Convert RGB to BGR 
     inputs = self.feature_extractor(images=pillow_image, return_tensors="pt")
     outputs = self.pretrained_model(**inputs)
