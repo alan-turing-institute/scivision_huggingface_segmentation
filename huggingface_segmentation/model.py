@@ -23,16 +23,17 @@ def tidy_predict(self, image: np.ndarray) -> str:
     inputs = self.feature_extractor(images=pillow_image, return_tensors="pt")
     outputs = self.pretrained_model(**inputs)
     logits = outputs.logits
+    return outputs, logits
 
-    v = Visualizer(im[:, :, ::-1], scale=1.5, instance_mode=ColorMode.IMAGE_BW)   # remove the colors of unsegmented pixels
-    v = v.draw_instance_predictions(logits["instances"].to("cpu"))
-    image = cv2.cvtColor(v.get_image()[:, :, :], cv2.COLOR_BGR2RGB)
-
-    plot_predictions = plt.figure(figsize=(15,15))
-    plt.imshow(Image.fromarray(image))
-    plt.title('Predictions',fontsize='xx-large')
-    plt.axis('off')
-    plt.show()
+    # v = Visualizer(im[:, :, ::-1], scale=1.5, instance_mode=ColorMode.IMAGE_BW)   # remove the colors of unsegmented pixels
+    # v = v.draw_instance_predictions(logits["instances"].to("cpu"))
+    # image = cv2.cvtColor(v.get_image()[:, :, :], cv2.COLOR_BGR2RGB)
+    # 
+    # plot_predictions = plt.figure(figsize=(15,15))
+    # plt.imshow(Image.fromarray(image))
+    # plt.title('Predictions',fontsize='xx-large')
+    # plt.axis('off')
+    # plt.show()
     
     
 def build_detr_model(model_name: str):
