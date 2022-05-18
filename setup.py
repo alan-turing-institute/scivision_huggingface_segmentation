@@ -7,6 +7,10 @@ with open("requirements.txt") as f:
         stripped = line.split("#")[0].strip()
         if len(stripped) > 0:
             requirements.append(stripped)
+            
+requirements.append(
+    'detectron2 @ git+https://github.com/facebookresearch/detectron2.git',
+)
 
 setup(
     name="huggingface_segmentation",
