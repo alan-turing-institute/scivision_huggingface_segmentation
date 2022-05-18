@@ -5,3 +5,4 @@ transformers
 transformers[torch]
 transformers[tf-cpu]
 transformers[flax]
+git+https://github.com/facebookresearch/detectron2.git
