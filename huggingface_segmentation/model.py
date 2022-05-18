@@ -12,16 +12,26 @@ from transformers import (DetrFeatureExtractor,
                           )
 
 
+# def tidy_predict(self, image: np.ndarray) -> str:
+#     """Gives the top prediction for the provided image"""
+#     pillow_image = Image.fromarray(image.to_numpy(), 'RGB')
+#     inputs = self.feature_extractor(images=pillow_image, return_tensors="pt")
+#     outputs = self.pretrained_model(**inputs)
+#     logits = outputs.logits
+#     # model predicts COCO classes, bounding boxes, and masks
+#     bboxes = outputs.pred_boxes
+#     masks = outputs.pred_masks
+#     return bboxes, masks
+
 def tidy_predict(self, image: np.ndarray) -> str:
     """Gives the top prediction for the provided image"""
     pillow_image = Image.fromarray(image.to_numpy(), 'RGB')
     inputs = self.feature_extractor(images=pillow_image, return_tensors="pt")
     outputs = self.pretrained_model(**inputs)
     logits = outputs.logits
-    # model predicts COCO classes, bounding boxes, and masks
-    bboxes = outputs.pred_boxes
-    masks = outputs.pred_masks
-    return bboxes, masks
+    # model predicts one of the 1000 ImageNet classes
+    predicted_class_idx = logits.argmax(-1).item()
+    return "Predicted class: " + self.pretrained_model.config.id2label[predicted_class_idx]
     
     
 def build_detr_model(model_name: str):
