@@ -1,4 +1,4 @@
-# scivision_huggingface_segmentation
+# Hugging Face segmentation plugin for scivision
 
 Model repository for the [scivision](https://scivision.readthedocs.io/) project that enables loading of image segmentation models from [Hugging Face](https://huggingface.co/models?pipeline_tag=image-segmentation&sort=downloads).
 
