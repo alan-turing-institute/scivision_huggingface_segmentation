@@ -1,7 +1,7 @@
 opencv-python
 pillow
 timm
-torch
+torchvision
 transformers
 transformers[torch]
 transformers[tf-cpu]
