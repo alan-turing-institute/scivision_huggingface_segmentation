@@ -18,7 +18,7 @@ setup(
     description="scivision plugin for Hugging Face image segmentation",
     author="Ed Chalstrey",
     author_email="echalstrey@turing.ac.uk",
-    url="https://github.com/IFenton/scivision_huggingface_segmentation",
+    url="https://github.com/alan-turing-institute/scivision_huggingface_segmentation",
     packages=find_packages(),
     install_requires=requirements,
     python_requires=">=3.7",
