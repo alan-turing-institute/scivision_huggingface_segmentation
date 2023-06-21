@@ -1,5 +1,5 @@
 name: huggingface_segmentation
-url: https://github.com/IFenton/scivision_huggingface_segmentation
+url: https://github.com/alan-turing-institute/scivision_huggingface_segmentation
 import: huggingface_segmentation
 models:
   - model: facebook_detr_resnet_50_panoptic
